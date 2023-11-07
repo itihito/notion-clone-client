@@ -35,11 +35,10 @@ const Sidebar = () => {
       try {
         const res = await memoApi.getAll();
         const favoriteMemos = res.filter((item) => item.favorite === true);
-        console.log("favoriteMemos", favoriteMemos);
         dispatch(setMemo(res));
         dispatch(setFavoriteMemo(favoriteMemos));
-        console.log("favoriteMemos", favoriteMemos);
       } catch (err) {
+        if (err.status === 401) return alert(err.data);
         alert(err);
       }
     };
