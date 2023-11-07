@@ -13,7 +13,6 @@ const AuthLayout = () => {
     const checkAuth = async () => {
       // 認証チェック
       const isAuth = await authUtils.isAuthenticated();
-      console.log("isAuth", isAuth);
       if (isAuth) {
         navigate("/");
       }

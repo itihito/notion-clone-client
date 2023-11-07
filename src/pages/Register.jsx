@@ -56,12 +56,9 @@ const Register = () => {
       });
       setLoading(false);
       localStorage.setItem("token", res.token);
-      console.log("新規登録に成功しました");
       navigate("/");
     } catch (err) {
-      console.log(err);
       const errors = err.data.errors;
-      console.log(errors);
       errors.forEach((err) => {
         if (err.path === "username") {
           setUsernameErrText(err.msg);

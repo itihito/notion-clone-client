@@ -21,8 +21,6 @@ const Login = () => {
     const data = new FormData(e.target);
     const username = data.get("username").trim();
     const password = data.get("password").trim();
-    console.log(username);
-    console.log(password);
 
     let error = false;
 
@@ -46,12 +44,10 @@ const Login = () => {
       });
       setLoading(false);
       localStorage.setItem("token", res.token);
-      console.log("ログインに成功しました");
+      console.log("Login successful!");
       navigate("/");
     } catch (err) {
-      console.log(err);
       const errors = err.data.errors;
-      console.log(errors);
       errors.forEach((err) => {
         if (err.path === "username") {
           setUsernameErrText(err.msg);

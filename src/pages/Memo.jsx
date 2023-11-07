@@ -77,7 +77,6 @@ const Memo = () => {
   const deleteMemo = async () => {
     try {
       const deleteMemo = await memoApi.delete(memoId);
-      console.log(deleteMemo);
 
       const newMemos = memos.filter((e) => e._id !== memoId);
       dispatch(setMemo(newMemos));
