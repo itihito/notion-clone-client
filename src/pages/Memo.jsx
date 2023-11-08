@@ -283,7 +283,7 @@ const Memo = () => {
             <Box
               className="app-main-note-preview"
               sx={{
-                backgroundColor: assets.colors.secondary,
+                backgroundColor: "#e6e6e6",
                 overflowY: "scroll",
                 height: "75vh",
                 "&::-webkit-scrollbar": {
