@@ -31,6 +31,7 @@ const EmojiPicker = (props) => {
       <Typography
         variant="h3"
         fontWeight="700"
+        width="0"
         sx={{ cursor: props.isChangeable ? "pointer" : "default" }}
         onClick={showPicker}
       >
