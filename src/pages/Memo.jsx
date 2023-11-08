@@ -181,6 +181,31 @@ const Memo = () => {
           <VisibilityIcon></VisibilityIcon>
         </IconButton>
       </Box>
+      <Divider />
+
+      <Box
+        sx={{
+          padding: "0 50px",
+          height: "12vh",
+          "@media (max-height: 700px)": { height: "20vh" },
+          "@media (max-height: 450px)": { height: "25vh" },
+        }}
+      >
+        <EmojiPicker icon={icon} onChange={onIconChange} isChangeable={true} />
+        <TextField
+          onChange={(e) => updateTitle(e)}
+          value={title}
+          placeholder="無題"
+          variant="outlined"
+          fullWidth
+          sx={{
+            ".MuiInputBase-input": { padding: 0 },
+            ".MuiOutlinedInput-notchedOutline": { border: "none" },
+            ".MuiOutlinedInput-root": { fontSize: "1.7rem", fontWeight: 700 },
+            // display: "none",
+          }}
+        />
+      </Box>
 
       <Box
         sx={{ display: "flex", border: "solid 1px #ccc9c9" }}
@@ -205,26 +230,6 @@ const Memo = () => {
             //   },
             // }}
           >
-            <EmojiPicker
-              icon={icon}
-              onChange={onIconChange}
-              isChangeable={true}
-            />
-            <TextField
-              onChange={(e) => updateTitle(e)}
-              value={title}
-              placeholder="無題"
-              variant="outlined"
-              fullWidth
-              sx={{
-                ".MuiInputBase-input": { padding: 0 },
-                ".MuiOutlinedInput-notchedOutline": { border: "none" },
-                ".MuiOutlinedInput-root": {
-                  fontSize: "1.7rem",
-                  fontWeight: 700,
-                },
-              }}
-            />
             <TextField
               onChange={(e) => updateDescription(e)}
               value={description}
@@ -275,21 +280,9 @@ const Memo = () => {
             //   },
             // }}
           >
-            <EmojiPicker icon={icon} />
-            <Box
-              sx={{
-                padding: 0,
-                border: "none",
-                fontSize: "1.7rem",
-                fontWeight: 700,
-              }}
-            >
-              {title}
-            </Box>
             <Box
               className="app-main-note-preview"
               sx={{
-                p: { margin: 0 },
                 backgroundColor: assets.colors.secondary,
                 overflowY: "scroll",
                 height: "75vh",
@@ -304,6 +297,8 @@ const Memo = () => {
                   background: "#dcdcdc",
                 },
                 whiteSpaceCollapse: "preserve",
+                padding: "16.5px 14px",
+                overflowWrap: "break-word",
               }}
             >
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
