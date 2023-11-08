@@ -12,6 +12,7 @@ import EmojiPicker from "../components/common/EmojiPicker";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import assets from "../assets/";
+import "./Memo.css";
 
 const Memo = () => {
   const { memoId } = useParams();
@@ -197,10 +198,23 @@ const Memo = () => {
             variant="outlined"
             fullWidth
             multiline
+            className="app-main-note-input"
             sx={{
               ".MuiInputBase-input": { padding: 0 },
               ".MuiOutlinedInput-notchedOutline": { border: "none" },
               ".MuiOutlinedInput-root": { fontSize: "1rem" },
+              overflowY: "scroll",
+              height: "100vh",
+              "&::-webkit-scrollbar": {
+                width: "10px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "gray",
+                borderRadius: "5px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "#dcdcdc",
+              },
             }}
           />
         </Box>
@@ -235,15 +249,29 @@ const Memo = () => {
           >
             {title}
           </Box>
-          <Box className="app-main-note-preview">
-            <Box className="markdown-preview">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                sx={{ border: "solid 1px black" }}
-              >
-                {description}
-              </ReactMarkdown>
-            </Box>
+          <Box
+            className="app-main-note-preview"
+            sx={{
+              p: { margin: 0 },
+              backgroundColor: assets.colors.secondary,
+              overflowY: "scroll",
+              height: "100vh",
+              "&::-webkit-scrollbar": {
+                width: "10px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "gray",
+                borderRadius: "5px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "#dcdcdc",
+              },
+              whiteSpaceCollapse: "preserve",
+            }}
+          >
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {description}
+            </ReactMarkdown>
           </Box>
         </Box>
       </Box>

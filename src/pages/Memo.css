@@ -1,0 +1,7 @@
+.app-main-note-preview p {
+  margin: 0;
+}
+
+.app-main-note-preview p:first-child {
+  margin-top: 16px;
+}
