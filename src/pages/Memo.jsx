@@ -2,6 +2,9 @@ import { Box, Divider, IconButton, TextField } from "@mui/material";
 import StarBorderOutLineIcon from "@mui/icons-material/StarBorderOutlined";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import memoApi from "../api/memoApi";
@@ -20,6 +23,8 @@ const Memo = () => {
   const [description, setDescription] = useState("");
   const [icon, setIcon] = useState("");
   const [favorite, setFavorite] = useState(false);
+  const [isInputVisible, setIsInputVisible] = useState(true);
+  const [isPreviewVisible, setIsPreviewVisible] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const memos = useSelector((state) => state.memo.value);
@@ -130,6 +135,21 @@ const Memo = () => {
     }
   };
 
+  const showInputOnly = () => {
+    setIsInputVisible(true);
+    setIsPreviewVisible(false);
+  };
+
+  const showInputAndPreview = () => {
+    setIsInputVisible(true);
+    setIsPreviewVisible(true);
+  };
+
+  const showPreviewOnly = () => {
+    setIsInputVisible(false);
+    setIsPreviewVisible(true);
+  };
+
   return (
     <>
       <Box
@@ -137,7 +157,8 @@ const Memo = () => {
           display: "flex",
           alignItems: "center",
           width: "100%",
-          height: "2vh",
+          height: "5vh",
+          paddingBottom: "10px",
         }}
       >
         <IconButton onClick={changeFavorite}>
@@ -150,130 +171,147 @@ const Memo = () => {
         <IconButton variant="outlined" color="error" onClick={deleteMemo}>
           <DeleteOutlinedIcon></DeleteOutlinedIcon>
         </IconButton>
+        <IconButton variant="outlined" onClick={showInputOnly}>
+          <EditIcon></EditIcon>
+        </IconButton>
+        <IconButton variant="outlined" onClick={showInputAndPreview}>
+          <VerticalSplitIcon></VerticalSplitIcon>
+        </IconButton>
+        <IconButton variant="outlined" onClick={showPreviewOnly}>
+          <VisibilityIcon></VisibilityIcon>
+        </IconButton>
       </Box>
 
       <Box
-        sx={{ padding: "10px 50px", display: "flex" }}
+        sx={{ display: "flex", border: "solid 1px #ccc9c9" }}
         // sx={{ padding: "10px 50px", display: "flex", flexDirection: "column" }}
       >
-        <Box
-          sx={{ width: "50%" }}
-          // sx={{
-          //   width: "100%",
-          //   height: "47vh",
-          //   overflowY: "scroll",
-          //   "&::-webkit-scrollbar": {
-          //     width: "10px",
-          //   },
-          //   "&::-webkit-scrollbar-thumb": {
-          //     background: "gray",
-          //     borderRadius: "5px",
-          //   },
-          //   "&::-webkit-scrollbar-track": {
-          //     background: "#dcdcdc",
-          //   },
-          // }}
-        >
-          <EmojiPicker
-            icon={icon}
-            onChange={onIconChange}
-            isChangeable={true}
-          />
-          <TextField
-            onChange={(e) => updateTitle(e)}
-            value={title}
-            placeholder="無題"
-            variant="outlined"
-            fullWidth
-            sx={{
-              ".MuiInputBase-input": { padding: 0 },
-              ".MuiOutlinedInput-notchedOutline": { border: "none" },
-              ".MuiOutlinedInput-root": { fontSize: "1.7rem", fontWeight: 700 },
-            }}
-          />
-          <TextField
-            onChange={(e) => updateDescription(e)}
-            value={description}
-            placeholder="追加"
-            variant="outlined"
-            fullWidth
-            multiline
-            className="app-main-note-input"
-            sx={{
-              ".MuiInputBase-input": { padding: 0 },
-              ".MuiOutlinedInput-notchedOutline": { border: "none" },
-              ".MuiOutlinedInput-root": { fontSize: "1rem" },
-              overflowY: "scroll",
-              height: "100vh",
-              "&::-webkit-scrollbar": {
-                width: "10px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                background: "gray",
-                borderRadius: "5px",
-              },
-              "&::-webkit-scrollbar-track": {
-                background: "#dcdcdc",
-              },
-            }}
-          />
-        </Box>
-        <Divider />
-        <Box
-          sx={{ width: "50%" }}
-          // sx={{
-          //   width: "100%",
-          //   height: "47vh",
-          //   overflowY: "scroll", // スクロール可能にする
-          //   backgroundColor: assets.colors.secondary,
-          //   "&::-webkit-scrollbar": {
-          //     width: "10px",
-          //   },
-          //   "&::-webkit-scrollbar-thumb": {
-          //     background: "gray",
-          //     borderRadius: "5px",
-          //   },
-          //   "&::-webkit-scrollbar-track": {
-          //     background: "#dcdcdc",
-          //   },
-          // }}
-        >
-          <EmojiPicker icon={icon} />
+        {isInputVisible && (
           <Box
-            sx={{
-              padding: 0,
-              border: "none",
-              fontSize: "1.7rem",
-              fontWeight: 700,
-            }}
+            sx={{ width: "50%" }}
+            // sx={{
+            //   width: "100%",
+            //   height: "47vh",
+            //   overflowY: "scroll",
+            //   "&::-webkit-scrollbar": {
+            //     width: "10px",
+            //   },
+            //   "&::-webkit-scrollbar-thumb": {
+            //     background: "gray",
+            //     borderRadius: "5px",
+            //   },
+            //   "&::-webkit-scrollbar-track": {
+            //     background: "#dcdcdc",
+            //   },
+            // }}
           >
-            {title}
+            <EmojiPicker
+              icon={icon}
+              onChange={onIconChange}
+              isChangeable={true}
+            />
+            <TextField
+              onChange={(e) => updateTitle(e)}
+              value={title}
+              placeholder="無題"
+              variant="outlined"
+              fullWidth
+              sx={{
+                ".MuiInputBase-input": { padding: 0 },
+                ".MuiOutlinedInput-notchedOutline": { border: "none" },
+                ".MuiOutlinedInput-root": {
+                  fontSize: "1.7rem",
+                  fontWeight: 700,
+                },
+              }}
+            />
+            <TextField
+              onChange={(e) => updateDescription(e)}
+              value={description}
+              placeholder="追加"
+              variant="outlined"
+              fullWidth
+              multiline
+              className="app-main-note-input"
+              sx={{
+                ".MuiInputBase-input": { padding: 0 },
+                ".MuiOutlinedInput-notchedOutline": { border: "none" },
+                ".MuiOutlinedInput-root": { fontSize: "1rem" },
+                overflowY: "scroll",
+                height: "75vh",
+                "&::-webkit-scrollbar": {
+                  width: "10px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "gray",
+                  borderRadius: "5px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  background: "#dcdcdc",
+                },
+              }}
+            />
           </Box>
+        )}
+        {/* <Divider /> */}
+
+        {isPreviewVisible && (
           <Box
-            className="app-main-note-preview"
-            sx={{
-              p: { margin: 0 },
-              backgroundColor: assets.colors.secondary,
-              overflowY: "scroll",
-              height: "100vh",
-              "&::-webkit-scrollbar": {
-                width: "10px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                background: "gray",
-                borderRadius: "5px",
-              },
-              "&::-webkit-scrollbar-track": {
-                background: "#dcdcdc",
-              },
-              whiteSpaceCollapse: "preserve",
-            }}
+            sx={{ width: "50%" }}
+            // sx={{
+            //   width: "100%",
+            //   height: "47vh",
+            //   overflowY: "scroll", // スクロール可能にする
+            //   backgroundColor: assets.colors.secondary,
+            //   "&::-webkit-scrollbar": {
+            //     width: "10px",
+            //   },
+            //   "&::-webkit-scrollbar-thumb": {
+            //     background: "gray",
+            //     borderRadius: "5px",
+            //   },
+            //   "&::-webkit-scrollbar-track": {
+            //     background: "#dcdcdc",
+            //   },
+            // }}
           >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {description}
-            </ReactMarkdown>
+            <EmojiPicker icon={icon} />
+            <Box
+              sx={{
+                padding: 0,
+                border: "none",
+                fontSize: "1.7rem",
+                fontWeight: 700,
+              }}
+            >
+              {title}
+            </Box>
+            <Box
+              className="app-main-note-preview"
+              sx={{
+                p: { margin: 0 },
+                backgroundColor: assets.colors.secondary,
+                overflowY: "scroll",
+                height: "75vh",
+                "&::-webkit-scrollbar": {
+                  width: "10px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "gray",
+                  borderRadius: "5px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  background: "#dcdcdc",
+                },
+                whiteSpaceCollapse: "preserve",
+              }}
+            >
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {description}
+              </ReactMarkdown>
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
     </>
   );
