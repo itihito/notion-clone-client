@@ -1,6 +1,6 @@
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import AuthLayout from "./components/layout/AuthLayout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,7 +11,7 @@ import Memo from "./pages/Memo";
 import { useEffect } from "react";
 
 const RedirectToIndex = () => {
-  // 404エラー時にリダイレクトする処理
+  // 想定外のURLをリダイレクトする処理
   useEffect(() => {
     window.location.href = "/";
   }, []);
@@ -37,7 +37,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="memo" element={<Home />} />
             <Route path="memo/:memoId" element={<Memo />} />
-            {/* 404エラー時にリダイレクト */}
             <Route path="*" element={<RedirectToIndex />} />
           </Route>
         </Routes>
