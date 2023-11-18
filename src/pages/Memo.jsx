@@ -10,11 +10,9 @@ import { useEffect, useState } from "react";
 import memoApi from "../api/memoApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setMemo } from "../redux/features/memoSlice";
-// import { setFavoriteMemo } from "../redux/features/favoriteMemoSlice";
 import EmojiPicker from "../components/common/EmojiPicker";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import assets from "../assets/";
 import "./Memo.css";
 
 const Memo = () => {
@@ -82,7 +80,7 @@ const Memo = () => {
 
   const deleteMemo = async () => {
     try {
-      const deleteMemo = await memoApi.delete(memoId);
+      await memoApi.delete(memoId);
 
       const newMemos = memos.filter((e) => e._id !== memoId);
       dispatch(setMemo(newMemos));

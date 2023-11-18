@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import memoApi from "../../api/memoApi";
 import { setMemo } from "../../redux/features/memoSlice";
-import { setFavoriteMemo } from "../../redux/features/favoriteMemoSlice";
 
 const Sidebar = () => {
   const [activeMemoId, setActiveMemoId] = useState("");
@@ -23,7 +22,6 @@ const Sidebar = () => {
   const { memoId } = useParams();
   const user = useSelector((state) => state.user.value);
   const memos = useSelector((state) => state.memo.value);
-  // const favoriteMemos = useSelector((state) => state.favoriteMemo.value);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -34,9 +32,7 @@ const Sidebar = () => {
     const getMemos = async () => {
       try {
         const res = await memoApi.getAll();
-        const favoriteMemos = res.filter((item) => item.favorite === true);
         dispatch(setMemo(res));
-        dispatch(setFavoriteMemo(favoriteMemos));
       } catch (err) {
         if (err.status === 401) return alert(err.data);
         alert(err);
