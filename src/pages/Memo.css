@@ -1,3 +1,5 @@
-.app-main-note-preview p {
+.app-main-note-preview p,
+.app-main-note-preview ol,
+.app-main-note-preview ul {
   margin: 0;
 }
