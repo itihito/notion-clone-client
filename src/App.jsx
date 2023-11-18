@@ -1,6 +1,6 @@
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import AuthLayout from "./components/layout/AuthLayout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -27,7 +27,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter basename="/">
+      <HashRouter>
         <Routes>
           <Route path="/" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
@@ -41,7 +41,7 @@ function App() {
             <Route path="*" element={<RedirectToIndex />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }
